@@ -1,0 +1,15 @@
+﻿namespace ShopHub.Services.Models.Auth
+{
+    using ShopHub.Services.Models.Contracts;
+
+    public class AuthResponse : TokenResponse, IResponse
+    {
+        public int UserId { get; set; }
+
+        public string UserName { get; set; }
+
+        public string FullName { get; set; }
+
+        public string RefreshToken { get; set; }
+    }
+}
