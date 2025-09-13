@@ -6,18 +6,28 @@ import {
   Typography,
 } from "@mui/material";
 import EuroIcon from "@mui/icons-material/Euro";
-import { useAppDispatch } from "~/state/hooks";
-import type { Product } from "~/models/data";
+import { useAppDispatch, useAppSelector } from "~/state/hooks";
+import type { Auth, Product } from "~/models/data";
 import { addToCart } from "~/state/slices/shoppingCartSlice";
 import AddToCart from "./AddToCart";
+import { useNotification } from "../NotificationContext";
 
 type Props = {
   product: Product;
 };
 
 const ProductItem = ({ product }: Props) => {
+  const user: Auth = useAppSelector((state) => state.auth.user);
+  const { showNotification } = useNotification();
   const dispatch = useAppDispatch();
-  const handleClick = () => dispatch(addToCart(product));
+
+  const handleClick = () => {
+    if (user && user.username) {
+      dispatch(addToCart(product));
+    } else {
+      showNotification("Please log in to add products to your cart!", "error");
+    }
+  };
 
   return (
     <Card sx={{ maxWidth: 345 }}>

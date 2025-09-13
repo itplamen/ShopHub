@@ -14,12 +14,12 @@ const SignOutForm = () => {
   const actionData = useActionData<AuthResponse<boolean>>();
 
   useEffect(() => {
-    console.log("qeqe");
-    console.log(actionData);
-    if (actionData?.isSuccess && actionData.type === "SignOut") {
-      dispatch(setSignOut());
-    } else if (!actionData?.isSuccess) {
-      showNotification("Could not sign out!", "error");
+    if (actionData) {
+      if (actionData?.isSuccess && actionData.type === "SignOut") {
+        dispatch(setSignOut());
+      } else if (!actionData?.isSuccess) {
+        showNotification("Could not sign out!", "error");
+      }
     }
   }, [actionData?.isSuccess, actionData?.data, actionData?.type]);
 
