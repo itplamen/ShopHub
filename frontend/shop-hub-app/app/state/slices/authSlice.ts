@@ -10,6 +10,8 @@ const initialState: AuthState = {
     userId: 0,
     username: "",
     fullName: "",
+    age: 0,
+    city: "",
     token: "",
     expiresIn: 0,
     refreshToken: "",
@@ -23,9 +25,12 @@ const authSlice = createSlice({
     setSignIn: (state, action: PayloadAction<Auth>) => {
       state.user = action.payload;
     },
+    setSignOut: (state) => {
+      state.user = {} as Auth;
+    },
   },
 });
 
-export const { setSignIn } = authSlice.actions;
+export const { setSignIn, setSignOut } = authSlice.actions;
 
 export default authSlice.reducer;

@@ -9,15 +9,16 @@ import {
 import type { Auth, AuthType } from "~/models/data";
 import { Form } from "react-router";
 import { useEffect } from "react";
+import type { AuthResponse } from "~/models/response";
 
 type Props = {
   children?: React.ReactNode;
   type: AuthType;
   title: string;
   isOpen: boolean;
-  actionData?: ApiResponse<string | Auth>;
-  handleSuccess: () => void;
-  handleClose: () => void;
+  actionData?: AuthResponse<string | Auth>;
+  onSuccess: () => void;
+  onClose: () => void;
 };
 
 const AuthForm = ({
@@ -26,18 +27,26 @@ const AuthForm = ({
   title,
   isOpen,
   actionData,
-  handleSuccess,
-  handleClose,
+  onSuccess,
+  onClose,
 }: Props) => {
   useEffect(() => {
-    if (actionData?.isSuccess) {
-      handleSuccess();
-      handleClose();
+    if (actionData?.isSuccess && actionData.type === type) {
+      onSuccess();
+      onClose();
     }
-  }, [actionData?.isSuccess]);
+  }, [actionData?.isSuccess, actionData?.data, type]);
+
+  const handleCLose = () => {
+    if (actionData && actionData.errors) {
+      actionData.errors = [];
+    }
+
+    onClose();
+  };
 
   return (
-    <Dialog open={isOpen} onClose={handleClose} maxWidth="xs" fullWidth>
+    <Dialog open={isOpen} onClose={handleCLose} maxWidth="xs" fullWidth>
       <DialogTitle align="center">{title}</DialogTitle>
       <DialogContent>
         {actionData &&

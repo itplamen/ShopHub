@@ -4,18 +4,19 @@ import { useActionData } from "react-router";
 import { useAppDispatch } from "~/state/hooks";
 import { setSignIn } from "~/state/slices/authSlice";
 import { useNotification } from "../NotificationContext";
+import type { AuthResponse } from "~/models/response";
 
 type Props = {
   isOpen: boolean;
-  handleClose: () => void;
+  onClose: () => void;
 };
 
-const SignInForm = ({ isOpen, handleClose }: Props) => {
-  const actionData = useActionData<ApiResponse<Auth>>();
+const SignInForm = ({ isOpen, onClose }: Props) => {
+  const actionData = useActionData<AuthResponse<Auth>>();
   const { showNotification } = useNotification();
   const dispatch = useAppDispatch();
 
-  const handleSuccess = () => {
+  const onSuccess = () => {
     if (actionData?.isSuccess) {
       dispatch(setSignIn(actionData.data));
       showNotification("Successful login!", "success");
@@ -28,8 +29,8 @@ const SignInForm = ({ isOpen, handleClose }: Props) => {
       title={"Sign In"}
       isOpen={isOpen}
       actionData={actionData}
-      handleSuccess={handleSuccess}
-      handleClose={handleClose}
+      onSuccess={onSuccess}
+      onClose={onClose}
     />
   );
 };
