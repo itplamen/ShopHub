@@ -2,11 +2,11 @@ import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 import type { Auth } from "~/models/data";
 
 interface AuthState {
-  auth: Auth;
+  user: Auth;
 }
 
 const initialState: AuthState = {
-  auth: {
+  user: {
     userId: 0,
     username: "",
     fullName: "",
@@ -17,11 +17,11 @@ const initialState: AuthState = {
 };
 
 const authSlice = createSlice({
-  name: "authentication",
+  name: "auth",
   initialState,
   reducers: {
     setSignIn: (state, action: PayloadAction<Auth>) => {
-      state.auth = action.payload;
+      state.user = action.payload;
     },
   },
 });
