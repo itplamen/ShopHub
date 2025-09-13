@@ -1,3 +1,9 @@
+interface BaseItem {
+  id: number;
+  name: string;
+  price: number;
+}
+
 export const AuthEnum = {
   SignIn: "SignIn",
   SignUp: "SignUp",
@@ -15,10 +21,11 @@ export interface Auth {
   refreshToken: string;
 }
 
-export interface Product {
-  id: number;
-  name: string;
-  price: number;
+export interface Product extends BaseItem {
   imageUrl: string;
   description: string;
+}
+
+export interface ShoppingCartItem extends BaseItem {
+  quantity: number;
 }
