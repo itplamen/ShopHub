@@ -32,7 +32,7 @@
 
         public async Task<BaseResponse> Register(RegisterRequest request)
         {
-            User user = await userManager.FindByNameAsync(request.UserName);
+            User user = await userManager.FindByNameAsync(request.Username);
 
             if (user == null)
             {
@@ -48,7 +48,7 @@
 
         public async Task<BaseResponse<LoginResponse>> Login(LoginRequest request, string ipAddress)
         {
-            User user = await userManager.FindByNameAsync(request.UserName);
+            User user = await userManager.FindByNameAsync(request.Username);
 
             if (user != null)
             {
@@ -65,7 +65,7 @@
                         Data = new LoginResponse()
                         {
                             UserId = user.Id,
-                            UserName = user.UserName,
+                            Username = user.UserName,
                             FullName = user.FullName,
                             Token = jwtToken.Token,
                             ExpiresIn = jwtToken.ExpiresIn,

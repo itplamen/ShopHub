@@ -14,7 +14,7 @@
             MinimumLength = ValidationConstants.USERNAME_MIN_LENGTH,
             ErrorMessageResourceType = typeof(ErrorMessages),
             ErrorMessageResourceName = "UsernameLength")]
-        public string UserName { get; set; }
+        public string Username { get; set; }
 
         [Required(
             ErrorMessageResourceType = typeof(ErrorMessages),
