@@ -58,6 +58,7 @@
                 {
                     TokenResponse jwtToken = GenerateJwtToken(user);
                     string refreshToken = await refreshTokensSerivce.Generate(user.Id, ipAddress, request.DeviceId, request.DeviceName);
+                    await refreshTokensSerivce.SaveChanges();
 
                     return new BaseResponse<LoginResponse>()
                     {
