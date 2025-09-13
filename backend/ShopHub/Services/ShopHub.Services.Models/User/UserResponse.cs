@@ -1,6 +1,8 @@
 ﻿namespace ShopHub.Services.Models.User
 {
-    public class UserResponse
+    using ShopHub.Services.Models.Contracts;
+
+    public class UserResponse : IResponse
     {
         public string Id { get; set; }
 

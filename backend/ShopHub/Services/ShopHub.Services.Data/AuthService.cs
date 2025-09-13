@@ -107,7 +107,7 @@
             return new BaseResponse<RefreshTokenResponse>("Refresh token does not exist");
         }
 
-        public async Task<bool> Logout(string token)
+        public async Task<BaseResponse> Logout(string token)
         {
             RefreshToken refreshToken = await refreshTokensSerivce.Get(token);
 
@@ -116,10 +116,10 @@
                 refreshTokensSerivce.Revoke(refreshToken);
                 await refreshTokensSerivce.SaveChanges();
 
-                return true;
+                return new BaseResponse();
             }
 
-            return false;
+            return new BaseResponse("Could not log out!");
         }
 
         private TokenResponse GenerateJwtToken(User user)

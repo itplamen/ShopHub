@@ -10,6 +10,10 @@
 
         public string FullName { get; set; }
 
+        public int Age { get; set; }
+
+        public string City { get; set; }
+
         public string RefreshToken { get; set; }
     }
 }

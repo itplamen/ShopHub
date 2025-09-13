@@ -13,7 +13,7 @@
             Errors = new List<string>() { errorMessage };
         }
 
-        public bool IsSuccess => (Errors == null || !Errors.Any());
+        public bool IsSuccess => Errors == null || !Errors.Any();
 
         public IEnumerable<string> Errors { get; set; }
     }

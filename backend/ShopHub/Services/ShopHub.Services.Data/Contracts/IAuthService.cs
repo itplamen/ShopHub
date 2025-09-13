@@ -11,6 +11,6 @@
 
         Task<BaseResponse<RefreshTokenResponse>> RefreshToken(string token);
 
-        Task<bool> Logout(string token);
+        Task<BaseResponse> Logout(string token);
     }
 }
