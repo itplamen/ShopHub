@@ -4,6 +4,13 @@ interface BaseItem {
   price: number;
 }
 
+interface UserProfile {
+  username: string;
+  fullName: string;
+  age: number;
+  city: string;
+}
+
 export const AuthEnum = {
   SignIn: "SignIn",
   SignUp: "SignUp",
@@ -12,10 +19,8 @@ export const AuthEnum = {
 
 export type AuthType = (typeof AuthEnum)[keyof typeof AuthEnum];
 
-export interface Auth {
+export interface Auth extends UserProfile {
   userId: number;
-  username: string;
-  fullName: string;
   token: string;
   expiresIn: number;
   refreshToken: string;
