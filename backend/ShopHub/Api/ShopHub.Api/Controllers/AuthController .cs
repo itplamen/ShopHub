@@ -11,12 +11,10 @@
     public class AuthController : ControllerBase
     {
         private readonly IAuthService authService;
-        private readonly IUsersService usersService;
-
-        public AuthController(IAuthService authService, IUsersService usersService)
+         
+        public AuthController(IAuthService authService )
         {
-            this.authService = authService;
-            this.usersService = usersService;
+            this.authService = authService;  
         }
 
         [HttpPost(nameof(Register))]
@@ -60,7 +58,7 @@
         {
             if (ModelState.IsValid)
             {
-                BaseResponse<RefreshTokenResponse> response = await authService.RefreshToken(request.Token);
+                BaseResponse<RefreshTokenResponse> response = await authService.RefreshToken(request.RefreshToken);
                 if (response.IsSuccess)
                 {
                     return Ok(response);
@@ -77,13 +75,13 @@
         {
             if (ModelState.IsValid)
             {
-                bool success = await authService.Logout(request.Token);
-                if (success)
+                BaseResponse response = await authService.Logout(request.RefreshToken);
+                if (response.IsSuccess)
                 {
-                    return Ok(success);
+                    return Ok(response);
                 }
 
-                return NotFound();
+                return Unauthorized(response);
             }
 
             return BadRequest(ModelState);
