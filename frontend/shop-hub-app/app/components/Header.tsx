@@ -3,6 +3,7 @@ import { AuthEnum, type Auth, type AuthType } from "~/models/data";
 import { AppBar, Toolbar, Typography, Button, Box } from "@mui/material";
 import { useAppSelector } from "~/state/hooks";
 import UserProfile from "./Profile/UserProfile";
+import SignOutForm from "./Auth/SignOutForm";
 
 type Props = {
   handleOpen: (auth: AuthType) => void;
@@ -18,7 +19,10 @@ const Header = ({ handleOpen }: Props) => {
           ShopHub
         </Typography>
         {user && user.username ? (
-          <UserProfile />
+          <>
+            <UserProfile />
+            <SignOutForm />
+          </>
         ) : (
           <Box>
             <Button color="inherit" onClick={() => handleOpen(AuthEnum.SignIn)}>
