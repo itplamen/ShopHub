@@ -1,12 +1,18 @@
-interface SignUpRequest {
+export interface SignUpRequest {
   username: string;
   password: string;
   fullName: string;
+  age: number;
+  city: string;
 }
 
-interface SignInRequest {
+export interface SignInRequest {
   username: string;
   password: string;
   deviceId: string;
   deviceName: string;
+}
+
+export interface SignOutRequest {
+  refreshToken: string;
 }
