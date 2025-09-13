@@ -2,7 +2,7 @@
 {
     using ShopHub.Services.Models.Contracts;
 
-    public class AuthResponse : TokenResponse, IResponse
+    public class LoginResponse : TokenResponse, IResponse
     {
         public int UserId { get; set; }
 
