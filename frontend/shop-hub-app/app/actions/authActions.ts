@@ -11,8 +11,9 @@ import type {
   NotificationResponse,
 } from "~/models/response";
 
-const deviceId = "1";
-const deviceName = "web";
+const DEVICE_ID: string = "1";
+const DEVICE_NAME: string = "web";
+const API_AUTH_URL: string = import.meta.env.VITE_AUTH_API_URL;
 
 const signUp = async (
   username: string,
@@ -29,7 +30,7 @@ const signUp = async (
     city,
   };
   const response = await postData<SignUpRequest, string>(
-    "http://localhost:5041/api/auth/register",
+    `${API_AUTH_URL}/register`,
     request
   );
 
@@ -56,19 +57,19 @@ const signIn = async (
   const request: SignInRequest = {
     username,
     password,
-    deviceId,
-    deviceName,
+    deviceId: DEVICE_ID,
+    deviceName: DEVICE_NAME,
   };
 
   const response = await postData<SignInRequest, Auth>(
-    "http://localhost:5041/api/auth/login",
+    `${API_AUTH_URL}/login`,
     request
   );
 
   if (response.isSuccess) {
     const notification: ApiResponse<NotificationResponse> =
       await getData<NotificationResponse>(
-        "http://localhost:5041/api/notifications",
+        `${API_AUTH_URL}/notifications`,
         response.data.token
       );
 
@@ -97,7 +98,7 @@ const signOut = async (
   };
 
   const response = await postData<SignOutRequest, boolean>(
-    "http://localhost:5041/api/auth/logout",
+    `${API_AUTH_URL}/logout`,
     request
   );
 

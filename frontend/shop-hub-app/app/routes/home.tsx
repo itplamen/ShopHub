@@ -9,6 +9,7 @@ export const meta = ({}: Route.MetaArgs) => {
 };
 
 const ITEMS_PER_PAGE = 9;
+const PRODUCTS_URL = import.meta.env.VITE_PRODUCTS_API_URL;
 
 const Home = ({ loaderData }: Route.ComponentProps) => {
   const [products, setProducts] = useState<Product[]>([]);
@@ -21,7 +22,7 @@ const Home = ({ loaderData }: Route.ComponentProps) => {
     try {
       setLoading(true);
       const res = await fetch(
-        `http://localhost:5041/api/products?page=${page}&pageSize=${ITEMS_PER_PAGE}`
+        `${PRODUCTS_URL}?page=${page}&pageSize=${ITEMS_PER_PAGE}`
       );
       if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
       const data: Product[] = await res.json();
