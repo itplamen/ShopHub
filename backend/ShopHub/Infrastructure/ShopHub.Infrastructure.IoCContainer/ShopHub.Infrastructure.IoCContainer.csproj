@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>net9.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
+    <Nullable>disable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>
@@ -14,6 +14,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Data\ShopHub.Data\ShopHub.Data.csproj" />
+    <ProjectReference Include="..\..\Services\ShopHub.Service.Cache\ShopHub.Service.Cache.csproj" />
     <ProjectReference Include="..\..\Services\ShopHub.Services.Data\ShopHub.Services.Data.csproj" />
     <ProjectReference Include="..\ShopHub.Infrastructure.Mapping\ShopHub.Infrastructure.Mapping.csproj" />
   </ItemGroup>

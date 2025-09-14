@@ -29,6 +29,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{884AEA
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShopHub.Common", "Common\ShopHub.Common\ShopHub.Common.csproj", "{33F39E30-26D8-4DF6-AB44-2DB5DC7A44FB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShopHub.Service.Cache", "Services\ShopHub.Service.Cache\ShopHub.Service.Cache.csproj", "{1D81D06E-8148-4ECA-80B8-D1B985AF82D9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -67,6 +69,10 @@ Global
 		{33F39E30-26D8-4DF6-AB44-2DB5DC7A44FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{33F39E30-26D8-4DF6-AB44-2DB5DC7A44FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{33F39E30-26D8-4DF6-AB44-2DB5DC7A44FB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1D81D06E-8148-4ECA-80B8-D1B985AF82D9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1D81D06E-8148-4ECA-80B8-D1B985AF82D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1D81D06E-8148-4ECA-80B8-D1B985AF82D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1D81D06E-8148-4ECA-80B8-D1B985AF82D9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -80,6 +86,7 @@ Global
 		{EC3A160D-8358-44C6-AEDF-8994675A93A9} = {608FC7F4-ECB3-45DE-AB0A-2336289D46CA}
 		{3AAFB31A-28DD-488B-9304-061D28B4C7DD} = {CC8BB311-89CD-4CA4-BDFB-0F62C80EB4E2}
 		{33F39E30-26D8-4DF6-AB44-2DB5DC7A44FB} = {884AEAE6-8A0D-4785-91B3-FCB0C4AE8D5F}
+		{1D81D06E-8148-4ECA-80B8-D1B985AF82D9} = {CC8BB311-89CD-4CA4-BDFB-0F62C80EB4E2}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {73DF687E-7A74-425F-9606-AFEDB65E2715}

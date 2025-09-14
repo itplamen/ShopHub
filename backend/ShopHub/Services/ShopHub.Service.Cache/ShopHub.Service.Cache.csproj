@@ -7,13 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="AutoMapper" Version="12.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="9.0.9" />
+    <PackageReference Include="Microsoft.Extensions.Caching.StackExchangeRedis" Version="9.0.9" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Data\ShopHub.Data.Models\ShopHub.Data.Models.csproj" />
-    <ProjectReference Include="..\..\Data\ShopHub.Data\ShopHub.Data.csproj" />
-    <ProjectReference Include="..\ShopHub.Service.Cache\ShopHub.Service.Cache.csproj" />
     <ProjectReference Include="..\ShopHub.Services.Models\ShopHub.Services.Models.csproj" />
   </ItemGroup>
 
