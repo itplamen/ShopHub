@@ -30,7 +30,7 @@
             this.refreshTokensSerivce = refreshTokensSerivce;
         }
 
-        public async Task<BaseResponse> Register(RegisterRequest request)
+        public async Task<BaseResponse<BaseAuthResponse>> Register(RegisterRequest request)
         {
             User user = await userManager.FindByNameAsync(request.Username);
 
@@ -38,12 +38,14 @@
             {
                 User newUser = mapper.Map<User>(request);
                 IdentityResult result = await userManager.CreateAsync(newUser, request.Password);
-                var response = mapper.Map<BaseResponse>(result);
+                
+                var response = mapper.Map<BaseResponse<BaseAuthResponse>>(result);
+                response.Data.UserId = user.Id;
 
                 return response;
             }
 
-            return new BaseResponse("Username already exists");
+            return new BaseResponse<BaseAuthResponse>("Username already exists");
         }
 
         public async Task<BaseResponse<LoginResponse>> Login(LoginRequest request, string ipAddress)
@@ -124,7 +126,7 @@
 
             var claims = new []
             {
-                new Claim("id", user.Id.ToString()),
+                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
                 new Claim(JwtRegisteredClaimNames.Sub, user.UserName),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
             };

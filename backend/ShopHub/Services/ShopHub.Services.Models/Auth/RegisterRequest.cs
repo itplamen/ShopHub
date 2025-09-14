@@ -4,7 +4,7 @@
 
     using ShopHub.Common;
 
-    public class RegisterRequest : BaseAuth
+    public class RegisterRequest : BaseAuthRequest
     {
         [StringLength(ValidationConstants.FULL_NAME_MAX_LENGTH)]
         public string FullName { get; set; }

@@ -7,8 +7,6 @@
         [Required]
         public string Message { get; set; }
 
-        public bool IsRead { get; set; }
-
         [Required]
         public int UserId { get; set; }
 

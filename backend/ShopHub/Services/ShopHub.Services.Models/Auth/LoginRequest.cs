@@ -2,7 +2,7 @@
 {
     using System.ComponentModel.DataAnnotations;
 
-    public class LoginRequest : BaseAuth
+    public class LoginRequest : BaseAuthRequest
     {
         [Required]
         public string DeviceId { get; set; }

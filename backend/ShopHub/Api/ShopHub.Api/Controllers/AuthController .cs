@@ -1,6 +1,6 @@
 ﻿namespace ShopHub.Api.Controllers
 {
-    using Microsoft.AspNetCore.Mvc;
+     using Microsoft.AspNetCore.Mvc;
  
     using ShopHub.Services.Data.Contracts;
     using ShopHub.Services.Models.Auth;
@@ -11,10 +11,12 @@
     public class AuthController : ControllerBase
     {
         private readonly IAuthService authService;
-         
-        public AuthController(IAuthService authService )
+        private readonly INotificationsService notificationsService;
+
+        public AuthController(IAuthService authService, INotificationsService notificationsService)
         {
-            this.authService = authService;  
+            this.authService = authService;
+            this.notificationsService = notificationsService;
         }
 
         [HttpPost(nameof(Register))]
@@ -22,9 +24,10 @@
         {
             if (ModelState.IsValid)
             {
-                BaseResponse response = await authService.Register(request);
+                BaseResponse<BaseAuthResponse> response = await authService.Register(request);
                 if (response.IsSuccess)
                 {
+                    await notificationsService.Create(response.Data.UserId, "Successful registration! Please, sign in to your account!");
                     return Ok(response);
                 }
 
@@ -44,10 +47,12 @@
 
                 if (response.IsSuccess)
                 {
+                    await notificationsService.Create(response.Data.UserId, "Successful login!");
                     return Ok(response);
                 }
-                    
+
                 return Unauthorized(response);
+
             }
 
             return BadRequest(ModelState);

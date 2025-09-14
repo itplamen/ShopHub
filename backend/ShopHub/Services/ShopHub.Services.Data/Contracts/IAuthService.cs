@@ -5,7 +5,7 @@
 
     public interface IAuthService
     {
-        Task<BaseResponse> Register(RegisterRequest request);
+        Task<BaseResponse<BaseAuthResponse>> Register(RegisterRequest request);
 
         Task<BaseResponse<LoginResponse>> Login(LoginRequest request, string ipAddress);
 

@@ -4,7 +4,7 @@
 
     using ShopHub.Common;
 
-    public abstract class BaseAuth
+    public abstract class BaseAuthRequest
     {
         [Required(
             ErrorMessageResourceType = typeof(ErrorMessages), 
