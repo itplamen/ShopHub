@@ -40,7 +40,7 @@
                 IdentityResult result = await userManager.CreateAsync(newUser, request.Password);
                 
                 var response = mapper.Map<BaseResponse<BaseAuthResponse>>(result);
-                response.Data.UserId = user.Id;
+                response.Data.UserId = newUser.Id;
 
                 return response;
             }
