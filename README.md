@@ -12,11 +12,23 @@ Practical assignment from YamSoft for the role of Full Stack Developer (.NET + R
 * UI with MUI (Material UI)
 * TypeScript
 
-To seed products, run:
-`Update-Database`
+Run the following command to seed the database with products:
 
-To run FE:
-`npm run dev`
+```
+Update-Database
+```
+
+Configure environment variables: create a `.env` file at the root of the project and add the following:
+```
+VITE_AUTH_API_URL=http://localhost:5041/api/auth
+VITE_PRODUCTS_API_URL=http://localhost:5041/api/products
+```
+
+To run FE project:
+```
+npm install
+npm run dev
+```
 
 Controllers → Cache Services (Decorator Pattern) → Data Services → Repos; DTOs; mapping
 
