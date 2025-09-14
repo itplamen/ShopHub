@@ -5,10 +5,12 @@ import AvatarIcon from "./Icons/AvatarIcon";
 import ShoppingCart from "./ShoppingCart";
 import { useAppSelector } from "~/state/hooks";
 import { totalCartItems } from "~/state/slices/shoppingCartSlice";
+import type { Auth } from "~/models/data";
 
 const UserProfile = () => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-  const count: number = useAppSelector(totalCartItems);
+  const user: Auth = useAppSelector((state) => state.auth.user);
+  const count: number = useAppSelector(totalCartItems(user.userId));
   const handleClose = () => setAnchorEl(null);
   const handleClick = (event: React.MouseEvent<HTMLElement>) =>
     setAnchorEl(event.currentTarget);
