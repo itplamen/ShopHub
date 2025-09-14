@@ -8,6 +8,8 @@
 
         public string Message { get; set; }
 
+        public string Type { get; set; }
+
         public DateTime CreatedOn { get; set; }
     }
 }

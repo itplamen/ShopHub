@@ -1,11 +1,15 @@
-import { postData } from "~/api/shopHubApi";
+import { getData, postData } from "~/api/shopHubApi";
 import type { Auth } from "~/models/data";
 import type {
   SignInRequest,
   SignOutRequest,
   SignUpRequest,
 } from "~/models/request";
-import type { AuthResponse } from "~/models/response";
+import type {
+  ApiResponse,
+  AuthResponse,
+  NotificationResponse,
+} from "~/models/response";
 
 const deviceId = "1";
 const deviceName = "web";
@@ -29,7 +33,20 @@ const signUp = async (
     request
   );
 
-  return { ...response, type: "SignUp" };
+  if (response.isSuccess) {
+    return {
+      authType: "SignUp",
+      isSuccess: true,
+      errors: [],
+      message: "Successful registration! Please, sign in to your account",
+      data: "",
+    };
+  }
+
+  return {
+    authType: "SignUp",
+    ...response,
+  };
 };
 
 const signIn = async (
@@ -48,7 +65,28 @@ const signIn = async (
     request
   );
 
-  return { ...response, type: "SignIn" };
+  if (response.isSuccess) {
+    const notification: ApiResponse<NotificationResponse> =
+      await getData<NotificationResponse>(
+        "http://localhost:5041/api/notifications",
+        response.data.token
+      );
+
+    return {
+      authType: "SignIn",
+      isSuccess: true,
+      errors: [],
+      ...notification.data,
+      data: {
+        ...response.data,
+      },
+    };
+  }
+
+  return {
+    authType: "SignIn",
+    ...response,
+  };
 };
 
 const signOut = async (
@@ -63,7 +101,7 @@ const signOut = async (
     request
   );
 
-  return { ...response, type: "SignOut" };
+  return { ...response, authType: "SignOut" };
 };
 
 export { signUp, signIn, signOut };

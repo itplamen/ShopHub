@@ -6,6 +6,13 @@ export interface ApiResponse<TData> {
   data: TData;
 }
 
-export interface AuthResponse<TData> extends ApiResponse<TData> {
-  type: AuthType;
+export interface NotificationResponse {
+  message?: string;
+  createdOn?: Date;
+}
+
+export interface AuthResponse<TData>
+  extends ApiResponse<TData>,
+    NotificationResponse {
+  authType: AuthType;
 }

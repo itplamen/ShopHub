@@ -1,7 +1,8 @@
 ﻿namespace ShopHub.Api.Controllers
 {
-     using Microsoft.AspNetCore.Mvc;
- 
+    using Microsoft.AspNetCore.Mvc;
+
+    using ShopHub.Data.Models;
     using ShopHub.Services.Data.Contracts;
     using ShopHub.Services.Models.Auth;
     using ShopHub.Services.Models.Base;
@@ -27,7 +28,6 @@
                 BaseResponse<BaseAuthResponse> response = await authService.Register(request);
                 if (response.IsSuccess)
                 {
-                    await notificationsService.Create(response.Data.UserId, "Successful registration! Please, sign in to your account!");
                     return Ok(response);
                 }
 
@@ -47,7 +47,7 @@
 
                 if (response.IsSuccess)
                 {
-                    await notificationsService.Create(response.Data.UserId, "Successful login!");
+                    await notificationsService.Create(response.Data.UserId, "Successful login!", NotificationType.Success);
                     return Ok(response);
                 }
 

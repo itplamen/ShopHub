@@ -19,7 +19,7 @@ const SignInForm = ({ isOpen, onClose }: Props) => {
   const onSuccess = () => {
     if (actionData?.isSuccess) {
       dispatch(setSignIn(actionData.data));
-      showNotification("Successful login!", "success");
+      showNotification(actionData?.message, "success");
     }
   };
 

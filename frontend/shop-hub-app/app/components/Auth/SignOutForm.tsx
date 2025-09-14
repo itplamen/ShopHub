@@ -15,13 +15,13 @@ const SignOutForm = () => {
 
   useEffect(() => {
     if (actionData) {
-      if (actionData?.isSuccess && actionData.type === "SignOut") {
+      if (actionData?.isSuccess && actionData.authType === "SignOut") {
         dispatch(setSignOut());
       } else if (!actionData?.isSuccess) {
         showNotification("Could not sign out!", "error");
       }
     }
-  }, [actionData?.isSuccess, actionData?.data, actionData?.type]);
+  }, [actionData?.isSuccess, actionData?.data, actionData?.authType]);
 
   return (
     <Form

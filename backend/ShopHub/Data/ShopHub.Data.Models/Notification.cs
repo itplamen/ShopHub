@@ -8,6 +8,9 @@
         public string Message { get; set; }
 
         [Required]
+        public NotificationType Type { get; set; }
+
+        [Required]
         public int UserId { get; set; }
 
         public User User { get; set; }

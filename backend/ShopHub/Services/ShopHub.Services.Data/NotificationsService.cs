@@ -33,12 +33,13 @@
             return new BaseResponse<NotificationResponse> { Data = response };
         }
 
-        public async Task Create(int userId, string message)
+        public async Task Create(int userId, string message, NotificationType type)
         {
             var notification = new Notification()
             {
                 UserId = userId,
-                Message = message
+                Message = message,
+                Type = type
             };
 
             await repository.AddAsync(notification);

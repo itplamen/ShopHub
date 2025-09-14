@@ -31,7 +31,7 @@ const AuthForm = ({
   onClose,
 }: Props) => {
   useEffect(() => {
-    if (actionData?.isSuccess && actionData.type === type) {
+    if (actionData?.isSuccess && actionData.authType === type) {
       onSuccess();
       onClose();
     }

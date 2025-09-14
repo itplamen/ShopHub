@@ -54,11 +54,13 @@ const Home = ({ loaderData }: Route.ComponentProps) => {
       if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
       const data: Product[] = await res.json();
 
-      if (data.length < ITEMS_PER_PAGE) setHasMore(false);
+      if (data.length < ITEMS_PER_PAGE) {
+        setHasMore(false);
+      }
 
       setProducts((prev) => [...prev, ...data]);
     } catch (err) {
-      //console.error("Fetch failed:", err);
+      console.error("Fetch failed:", err);
       setHasMore(false);
     } finally {
       setLoading(false);

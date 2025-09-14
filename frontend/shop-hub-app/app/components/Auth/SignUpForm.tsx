@@ -16,10 +16,7 @@ const SignUpForm = ({ isOpen, onClose }: Props) => {
 
   const onSuccess = () => {
     if (actionData?.isSuccess) {
-      showNotification(
-        "Successful registration! Please, sign in to your account",
-        "success"
-      );
+      showNotification(actionData?.message, "success");
     }
   };
 
