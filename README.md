@@ -20,7 +20,7 @@ Update-Database
 
 Configure environment variables: create a `.env` file at the root of the project and add the following:
 ```
-VITE_AUTH_API_URL=http://localhost:5041/api/auth
+VITE_AUTH_API_URL=http://localhost:5041/api
 VITE_PRODUCTS_API_URL=http://localhost:5041/api/products
 ```
 
