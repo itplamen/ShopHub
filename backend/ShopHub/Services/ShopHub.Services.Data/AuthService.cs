@@ -60,18 +60,12 @@
                     string refreshToken = await refreshTokensSerivce.Generate(user.Id, ipAddress, request.DeviceId, request.DeviceName);
                     await refreshTokensSerivce.SaveChanges();
 
-                    return new BaseResponse<LoginResponse>()
-                    {
-                        Data = new LoginResponse()
-                        {
-                            UserId = user.Id,
-                            Username = user.UserName,
-                            FullName = user.FullName,
-                            Token = jwtToken.Token,
-                            ExpiresIn = jwtToken.ExpiresIn,
-                            RefreshToken = refreshToken
-                        }
-                    };
+                    var loginResponse = mapper.Map<LoginResponse>(user);
+                    loginResponse.Token = jwtToken.Token;
+                    loginResponse.ExpiresIn = jwtToken.ExpiresIn;
+                    loginResponse.RefreshToken = refreshToken;
+
+                    return new BaseResponse<LoginResponse>() { Data = loginResponse };
                 }
 
                 return new BaseResponse<LoginResponse>("Invalid password");
