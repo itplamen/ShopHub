@@ -30,7 +30,7 @@ const signUp = async (
     city,
   };
   const response = await postData<SignUpRequest, string>(
-    `${API_AUTH_URL}/register`,
+    `${API_AUTH_URL}/auth/register`,
     request
   );
 
@@ -62,7 +62,7 @@ const signIn = async (
   };
 
   const response = await postData<SignInRequest, Auth>(
-    `${API_AUTH_URL}/login`,
+    `${API_AUTH_URL}/auth/login`,
     request
   );
 
@@ -98,7 +98,7 @@ const signOut = async (
   };
 
   const response = await postData<SignOutRequest, boolean>(
-    `${API_AUTH_URL}/logout`,
+    `${API_AUTH_URL}/auth/logout`,
     request
   );
 
