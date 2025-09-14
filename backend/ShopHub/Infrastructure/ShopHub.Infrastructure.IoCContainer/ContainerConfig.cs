@@ -1,5 +1,6 @@
 ﻿namespace ShopHub.Infrastructure.IoCContainer
 {
+    using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
 
     using ShopHub.Infrastructure.IoCContainer.Contracts;
@@ -7,11 +8,11 @@
 
     public static class ContainerConfig
     {
-        public static void AddWebServices(this IServiceCollection services)
+        public static void AddWebServices(this IServiceCollection services, IConfiguration configuration)
         {
-            IPackage[] packages = new IPackage[]
+            IPackage[] packages =
             {
-                
+                new CachePackage(configuration),
                 new MappingsPackage(),
                 new WebPackage(),
             };

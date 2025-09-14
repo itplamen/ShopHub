@@ -1,12 +1,10 @@
 ﻿namespace ShopHub.Api.Controllers
 {
-    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
     using ShopHub.Services.Data.Contracts;
     using ShopHub.Services.Models.Product;
 
-    //[Authorize]
     [ApiController]
     [Route("/api/[controller]")]
     public class ProductsController : ControllerBase

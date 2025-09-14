@@ -1,33 +1,31 @@
+using System.Text;
+using System.Text.Json;
+
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
+
 using ShopHub.Api;
 using ShopHub.Data;
 using ShopHub.Data.Models;
 using ShopHub.Infrastructure.IoCContainer;
-using System.Text;
-using System.Text.Json;
 
 var builder = WebApplication.CreateBuilder(args);
-
  
 builder.Services.AddControllers();
-
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowFrontend", policy =>
     {
         policy
-            .WithOrigins("http://localhost:5173") // your frontend URL
+            .WithOrigins("http://localhost:5173")
             .AllowAnyHeader()
             .AllowAnyMethod();
     });
 });
-
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -35,7 +33,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<ShopHubDbContext>(options =>
     options.UseSqlServer(
         builder.Configuration.GetConnectionString("DefaultConnection"),
-        b => b.MigrationsAssembly("ShopHub.Data") // <-- specify migrations assembly
+        b => b.MigrationsAssembly("ShopHub.Data")
     )
 );
 
@@ -48,8 +46,7 @@ builder.Services.AddIdentity<User, Role> (options =>
 .AddEntityFrameworkStores<ShopHubDbContext>()
 .AddDefaultTokenProviders();
 
-builder.Services.AddWebServices();
-
+builder.Services.AddWebServices(builder.Configuration);
 builder.Services.AddAuthentication(options =>
 {
     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -107,7 +104,6 @@ app.UseExceptionHandler(err =>
         await context.Response.WriteAsync(result);
     });
 });
-
 
 app.MapControllers();
 
