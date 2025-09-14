@@ -1,6 +1,5 @@
 import * as React from "react";
 import Box from "@mui/material/Box";
-import { Button } from "@mui/material";
 import ShoppingCartIcon from "./Icons/ShoppingCartIcon";
 import AvatarIcon from "./Icons/AvatarIcon";
 import ShoppingCart from "./ShoppingCart";
