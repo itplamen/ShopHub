@@ -7,8 +7,9 @@ import {
 } from "@mui/material";
 import EuroIcon from "@mui/icons-material/Euro";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { useAppDispatch } from "~/state/hooks";
+import { useAppDispatch, useAppSelector } from "~/state/hooks";
 import { removeFromCart } from "~/state/slices/shoppingCartSlice";
+import type { Auth } from "~/models/data";
 
 type Props = {
   id: number;
@@ -18,8 +19,10 @@ type Props = {
 };
 
 const ShoppingCartItem = ({ id, name, price, quantity }: Props) => {
+  const user: Auth = useAppSelector((state) => state.auth.user);
   const dispatch = useAppDispatch();
-  const handleClick = () => dispatch(removeFromCart(id));
+  const handleClick = () =>
+    dispatch(removeFromCart({ userId: user.userId, productId: id }));
 
   return (
     <ListItem

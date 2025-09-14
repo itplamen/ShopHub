@@ -23,7 +23,7 @@ const ProductItem = ({ product }: Props) => {
 
   const handleClick = () => {
     if (user && user.username) {
-      dispatch(addToCart(product));
+      dispatch(addToCart({ userId: user.userId, product }));
     } else {
       showNotification("Please log in to add products to your cart!", "error");
     }

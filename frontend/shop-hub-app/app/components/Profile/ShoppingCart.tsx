@@ -1,6 +1,7 @@
 import { Box, List, ListItem, Menu, MenuItem, Typography } from "@mui/material";
 import { useAppSelector } from "~/state/hooks";
 import ShoppingCartItem from "./ShoppingCartItem";
+import type { Auth } from "~/models/data";
 
 type Props = {
   anchorEl: HTMLElement | null;
@@ -9,7 +10,10 @@ type Props = {
 };
 
 const ShoppingCart = ({ anchorEl, isOpen, onClose }: Props) => {
-  const items = useAppSelector((state) => state.shoppingCart.items);
+  const user: Auth = useAppSelector((state) => state.auth.user);
+  const items = useAppSelector(
+    (state) => state.shoppingCart.carts[user.userId]
+  );
 
   return (
     <Menu
