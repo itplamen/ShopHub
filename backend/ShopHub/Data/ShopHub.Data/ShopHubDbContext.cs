@@ -4,7 +4,6 @@
     using Microsoft.EntityFrameworkCore;
 
     using ShopHub.Data.Models;
-    using System.Reflection.Emit;
 
     public class ShopHubDbContext : IdentityDbContext<User, Role, int>
     {
@@ -36,7 +35,15 @@
                 .Property(p => p.Price)
                 .HasColumnType("decimal(18,4)");
 
-            builder.Entity<Product>().HasData(DataSeedProvider.GetProducts());
+            var seed = Enumerable.Range(0, 3)
+                .SelectMany(_ => DataSeedProvider.GetProducts())
+                .Select((product, index) =>
+                {
+                    product.Id = index + 1;
+                    return product;
+                });
+
+            builder.Entity<Product>().HasData(seed);
 
             base.OnModelCreating(builder);
         }
