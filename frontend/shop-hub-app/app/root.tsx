@@ -5,12 +5,19 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
+  type ActionFunctionArgs,
 } from "react-router";
 
 import type { Route } from "./+types/root";
 import "./app.css";
 import { NotificationProvider } from "./components/NotificationContext";
 import ReduxProvider from "./components/ReduxProvider";
+import Header from "./components/Header";
+import SignInForm from "./components/Auth/SignInForm";
+import { AuthEnum, type AuthType } from "./models/data";
+import { useState } from "react";
+import SignUpForm from "./components/Auth/SignUpForm";
+import { signIn, signOut, signUp } from "./actions/authActions";
 
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -24,6 +31,26 @@ export const links: Route.LinksFunction = () => [
     href: "https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap",
   },
 ];
+
+export const action = async ({ request }: ActionFunctionArgs) => {
+  const formData = await request.formData();
+  const type = formData.get("type") as AuthType;
+  const username = formData.get("username") as string;
+  const password = formData.get("password") as string;
+  const fullName = formData.get("fullName") as string;
+  const age = Number(formData.get("age") as string);
+  const city = formData.get("city") as string;
+  const refreshToken = formData.get("refreshToken") as string;
+
+  const response =
+    type === "SignUp"
+      ? await signUp(username, password, fullName, age, city)
+      : type === "SignIn"
+        ? await signIn(username, password)
+        : await signOut(refreshToken);
+
+  return { ...response };
+};
 
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
@@ -42,11 +69,19 @@ export function Layout({ children }: { children: React.ReactNode }) {
     </html>
   );
 }
+type AuthState = AuthType | null;
 
 export default function App() {
+  const [open, setOpen] = useState<AuthState>(null);
+  const handleOpen = (authType: AuthType) => setOpen(authType);
+  const handleClose = () => setOpen(null);
+
   return (
     <ReduxProvider>
       <NotificationProvider>
+        <Header handleOpen={handleOpen} />
+        <SignInForm isOpen={open === AuthEnum.SignIn} onClose={handleClose} />
+        <SignUpForm isOpen={open === AuthEnum.SignUp} onClose={handleClose} />
         <Outlet />
       </NotificationProvider>
     </ReduxProvider>

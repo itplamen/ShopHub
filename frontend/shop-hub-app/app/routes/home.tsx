@@ -1,44 +1,16 @@
-import Header from "~/components/Header";
 import type { Route } from "./+types/home";
 import { Container, Grid, Typography } from "@mui/material";
 import { useState, useEffect, useRef } from "react";
-import type { ActionFunctionArgs } from "react-router";
-import { AuthEnum, type AuthType, type Product } from "~/models/data";
-import { signUp, signIn, signOut } from "~/actions/authActions";
-import SignInForm from "~/components/Auth/SignInForm";
-import SignUpForm from "~/components/Auth/SignUpForm";
+import { type Product } from "~/models/data";
 import ProductItem from "~/components/Product/ProductItem";
 
 export const meta = ({}: Route.MetaArgs) => {
   return [{ title: "ShopHub" }];
 };
 
-const action = async ({ request }: ActionFunctionArgs) => {
-  const formData = await request.formData();
-  const type = formData.get("type") as AuthType;
-  const username = formData.get("username") as string;
-  const password = formData.get("password") as string;
-  const fullName = formData.get("fullName") as string;
-  const age = Number(formData.get("age") as string);
-  const city = formData.get("city") as string;
-  const refreshToken = formData.get("refreshToken") as string;
-
-  const response =
-    type === "SignUp"
-      ? await signUp(username, password, fullName, age, city)
-      : type === "SignIn"
-        ? await signIn(username, password)
-        : await signOut(refreshToken);
-
-  return { ...response };
-};
-
 const ITEMS_PER_PAGE = 9;
 
-type AuthState = AuthType | null;
-
 const Home = ({ loaderData }: Route.ComponentProps) => {
-  const [open, setOpen] = useState<AuthState>(null);
   const [products, setProducts] = useState<Product[]>([]);
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
@@ -82,7 +54,7 @@ const Home = ({ loaderData }: Route.ComponentProps) => {
     return () => observer.disconnect();
   }, [loading, hasMore]);
 
-  if (!products || products.length === 0) {
+  if (!loading && (!products || products.length === 0)) {
     return (
       <Container>
         <Typography>No products available.</Typography>
@@ -90,29 +62,24 @@ const Home = ({ loaderData }: Route.ComponentProps) => {
     );
   }
 
-  const handleOpen = (authType: AuthType) => setOpen(authType);
-  const handleClose = () => setOpen(null);
-
   return (
     <>
-      <Header handleOpen={handleOpen} />
-      <SignInForm isOpen={open === AuthEnum.SignIn} onClose={handleClose} />
-      <SignUpForm isOpen={open === AuthEnum.SignUp} onClose={handleClose} />
-      <Container
-        sx={{
-          paddingY: 1,
-        }}
-      >
+      <Container sx={{ paddingY: 1 }}>
         <Grid container spacing={3}>
           {products.map((product: Product) => (
             <ProductItem product={product} key={product.id} />
           ))}
         </Grid>
+
+        {loading && <Typography>Loading products...</Typography>}
+        {!loading && products.length === 0 && (
+          <Typography>No products available.</Typography>
+        )}
+
         <div ref={loaderRef} style={{ height: 40 }} />
       </Container>
     </>
   );
 };
 
-export { action };
 export default Home;
