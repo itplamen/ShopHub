@@ -19,3 +19,6 @@ To run FE:
 `npm run dev`
 
 Controllers → Cache Services (Decorator Pattern) → Data Services → Repos; DTOs; mapping
+
+## Preview
+![Alt Text](assets/Screenshot_1.png)
