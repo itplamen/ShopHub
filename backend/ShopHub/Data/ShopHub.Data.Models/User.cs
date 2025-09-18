@@ -15,9 +15,6 @@
             RefreshTokens = new HashSet<RefreshToken>(ReferenceEqualityComparer.Instance);
         } 
 
-        [Required]
-        public string Password { get; set; }
-
         public string FullName { get; set; }
 
         public int Age { get; set; }
